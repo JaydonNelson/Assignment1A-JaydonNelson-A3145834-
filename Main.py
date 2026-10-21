@@ -1,7 +1,7 @@
 '''
-File: filename.py
-Description: A brief description of this Python module.
-Author: Billy Bizilis
-Username: bizvy001
+File: Main.py
+Description: A module where the test code is run from.
+Author: Jaydon Nelson
+Username: JaydonNelson
 This is my own work as defined by the University's Academic Integrity Policy.
 '''
