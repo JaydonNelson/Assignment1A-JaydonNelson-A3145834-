@@ -10,13 +10,13 @@ This is my own work as defined by the University's Academic Integrity Policy.
 # Movie summary - movie title, genre, duration and avg. user rating. included in dictionaries now.
 movie_list = []
 
-movie = {'title': 'The Shawshank Redemption', 'genre': 'Drama', 'duration': 142}
+movie = {'title': 'The Shawshank Redemption', 'genre': 'Drama', 'duration': 142, 'avg_rate':[]}
 movie_list.append(movie)
 
-movie = {'title': 'Disaster Movie', 'genre': 'Comedy', 'duration': 97}
+movie = {'title': 'Disaster Movie', 'genre': 'Comedy', 'duration': 97, 'avg_rate':[]}
 movie_list.append(movie)
 
-movie = {'title': 'Lego: The Adventures of Clutch Powers', 'genre': 'Animation', 'duration': 78}
+movie = {'title': 'Lego: The Adventures of Clutch Powers', 'genre': 'Animation', 'duration': 78, 'avg_rate':[]}
 movie_list.append(movie)
 
 # User list - Users name, movies in their watchlist, movies they have watched, any ratings they submitted.
@@ -53,7 +53,7 @@ def new_movie(title, genre, duration):
             movie_exists = True
 
     if movie_exists == False:
-        movie = {'title': title, 'genre': genre, 'duration': duration}
+        movie = {'title': title, 'genre': genre, 'duration': duration, 'avg_rate':[]}
         movie_list.append(movie)
         print(f'{title} added to movies list')
     else:
@@ -166,12 +166,36 @@ def rate_movie(username, title, rating):
         print(f'User {username} and movie {title} both not found on platform')
 
 
-watch_movie('Sally', 'Disaster Movie')
+def user_summary(username):
+    for user in user_list:
+        if user['username'] == username:
+            print(f'User {username}')
+            print('Movies in watchlist:')
+
+            for movie in user['watchlist']:
+                print(f'{movie}')
+
+            print(f'Movies {username} has watched')
+
+            for movie in user['movies_watched']:
+                print(f'{movie}')
+                print(f'{user['ratings'][movie]}/100')
+
+    if user['username'] != username:
+        print(f'User {username} not found on platform')
+
+
+def movie_summary(title):
+    for movie in movie_list:
+        if movie['title'] == title:
+            pass
+
+        else:
+            print(f'Movie {title} not found on platform')
+
+
 print(user_list)
-rate_movie('Sally', 'Disaster Movie', 80)
-print(user_list)
-rate_movie('Sally', 'Disaster Movie', 50)
-print(user_list)
+user_summary('Sally')
 
 
 
