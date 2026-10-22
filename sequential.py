@@ -22,13 +22,13 @@ movie_list.append(movie)
 # User list - Users name, movies in their watchlist, movies they have watched, any ratings they submitted.
 user_list = []
 
-user = {'username': 'Jaydon', 'watchlist':[]}
+user = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[]}
 user_list.append(user)
 
-user = {'username': 'Sally', 'watchlist':[]}
+user = {'username': 'Sally', 'watchlist':[], 'movies_watched':[]}
 user_list.append(user)
 
-user = {'username': 'Bob', 'watchlist':[]}
+user = {'username': 'Bob', 'watchlist':[], 'movies_watched':[]}
 user_list.append(user)
 
 def new_user(username):
@@ -38,7 +38,7 @@ def new_user(username):
             user_exists = True
 
         if user_exists == False:
-            user = {'username': username, 'watchlist':[]}
+            user = {'username': username, 'watchlist':[], 'movies_watched':[]}
             user_list.append(user)
             print(f'{username} added to users list')
     else:
@@ -90,16 +90,47 @@ def add_to_watchlist(username, title):
         print(f'User {username} and movie {title} both not found on platform')
 
 
-add_to_watchlist('Jaydon', 'Disaster Movie')
-print(user_list)
-add_to_watchlist('Sally', 'Disaster Movie')
-print(user_list)
-add_to_watchlist('Sally', 'Disaster Movie')
-print(user_list)
-add_to_watchlist('John', 'Disaster Movie')
-print(user_list)
-add_to_watchlist('John', 'Up')
-print(user_list)
-add_to_watchlist('Sally', 'Up')
-print(user_list)
+def watch_movie(username, title):
+    user_exists = False
+    movie_exists = False
+    for user in user_list:
+        if user['username'] == username:
+            user_exists = True
 
+            for movie in movie_list:
+                if movie['title'] == title:
+                    if title not in user['movies_watched']:
+                        if title in movie['title']:
+                            if title in user['watchlist']:
+                                user['watchlist'].remove(title)
+                            user['movies_watched'].append(title)
+                            movie_exists = True
+                            print(f'{title} watched by {username}')
+
+                        else:
+                            movie_exists = False
+                            print(f'{title} not found on platform')
+
+                    elif title in user['movies_watched']:
+                        movie_exists = True
+                        print(f'{title} has already been watched by {username}')
+
+            if movie_exists == False:
+                print(f'{title} not found on platform')
+
+    if user_exists == False and movie_exists == True:
+        print(f'User {username} not found on platform')
+
+    elif user_exists == False and movie_exists == False:
+        print(f'User {username} and movie {title} both not found on platform')
+
+add_to_watchlist('Sally', 'Disaster Movie')
+print(user_list)
+watch_movie('Sally', 'Disaster Movie')
+print(user_list)
+watch_movie('Sally', 'Up')
+print(user_list)
+watch_movie('John', 'Down')
+print(user_list)
+watch_movie('Bob', 'The Shawshank Redemption')
+print(user_list)
