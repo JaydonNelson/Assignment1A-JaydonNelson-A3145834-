@@ -31,6 +31,7 @@ user_list.append(user)
 user = {'username': 'Bob', 'watchlist':[], 'movies_watched':[]}
 user_list.append(user)
 
+
 def new_user(username):
     user_exists = False
     for user in user_list:
@@ -44,6 +45,7 @@ def new_user(username):
     else:
         print('Username already exists')
 
+
 def new_movie(title, genre, duration):
     movie_exists = False
     for movie in movie_list:
@@ -56,6 +58,7 @@ def new_movie(title, genre, duration):
         print(f'{title} added to movies list')
     else:
         print('Movie already exists')
+
 
 def add_to_watchlist(username, title):
     user_exists = False
@@ -124,13 +127,51 @@ def watch_movie(username, title):
     elif user_exists == False and movie_exists == False:
         print(f'User {username} and movie {title} both not found on platform')
 
-add_to_watchlist('Sally', 'Disaster Movie')
-print(user_list)
+
+def rate_movie(username, title, rating):
+    user_exists = False
+    movie_exists = False
+
+    for user in user_list:
+        if user['username'] == username:
+            user_exists = True
+
+            for movie in movie_list:
+                if movie['title'] == title:
+                    if title in user['movies_watched']:
+                        if title in movie['title']:
+                            if isinstance(rating, int) and range(0, 100):
+
+                                user['movies_watched'['rating']].append(rating)
+                                movie_exists = True
+                                print(f'{title} rated {rating}/100 by {username}')
+
+                        else:
+
+                            movie_exists = False
+                            print(f'{title} not found on platform')
+
+                    elif title not in user['movies_watched']:
+
+                        movie_exists = True
+                        print(f'{title} rated hasn\'t been watched by {username} yet')
+
+            if movie_exists == False:
+
+                print(f'{title} not found on platform')
+
+    if user_exists == False and movie_exists == True:
+
+        print(f'User {username} not found on platform')
+
+    elif user_exists == False and movie_exists == False:
+
+        print(f'User {username} and movie {title} both not found on platform')
+
 watch_movie('Sally', 'Disaster Movie')
 print(user_list)
-watch_movie('Sally', 'Up')
+print(movie_list)
+rate_movie('Sally', 'Disaster Movie', 80)
 print(user_list)
-watch_movie('John', 'Down')
-print(user_list)
-watch_movie('Bob', 'The Shawshank Redemption')
-print(user_list)
+print(movie_list)
+
