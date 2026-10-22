@@ -22,13 +22,13 @@ movie_list.append(movie)
 # User list - Users name, movies in their watchlist, movies they have watched, any ratings they submitted.
 user_list = []
 
-user = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[]}
+user = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
 user_list.append(user)
 
-user = {'username': 'Sally', 'watchlist':[], 'movies_watched':[]}
+user = {'username': 'Sally', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
 user_list.append(user)
 
-user = {'username': 'Bob', 'watchlist':[], 'movies_watched':[]}
+user = {'username': 'Bob', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
 user_list.append(user)
 
 
@@ -39,7 +39,7 @@ def new_user(username):
             user_exists = True
 
         if user_exists == False:
-            user = {'username': username, 'watchlist':[], 'movies_watched':[]}
+            user = {'username': username, 'watchlist':[], 'movies_watched':[], 'ratings':{}}
             user_list.append(user)
             print(f'{username} added to users list')
     else:
@@ -139,39 +139,40 @@ def rate_movie(username, title, rating):
             for movie in movie_list:
                 if movie['title'] == title:
                     if title in user['movies_watched']:
-                        if title in movie['title']:
-                            if isinstance(rating, int) and range(0, 100):
+                        if movie['title'] == title:
+                            if isinstance(rating, int):
+                                if 0 <= rating <= 100:
+                                    user['ratings'][title] = rating
+                                    movie_exists = True
+                                    print(f'{title} rated {rating}/100 by {username}')
+                                else:
+                                    print(f'{title} cannot be rated above 100 or below 0')
 
-                                user['movies_watched'['rating']].append(rating)
-                                movie_exists = True
-                                print(f'{title} rated {rating}/100 by {username}')
-
-                        else:
-
-                            movie_exists = False
-                            print(f'{title} not found on platform')
+                            else:
+                                movie_exists = False
+                                print(f'{title} not found on platform')
 
                     elif title not in user['movies_watched']:
-
                         movie_exists = True
                         print(f'{title} rated hasn\'t been watched by {username} yet')
 
             if movie_exists == False:
-
                 print(f'{title} not found on platform')
 
     if user_exists == False and movie_exists == True:
-
         print(f'User {username} not found on platform')
 
     elif user_exists == False and movie_exists == False:
-
         print(f'User {username} and movie {title} both not found on platform')
+
 
 watch_movie('Sally', 'Disaster Movie')
 print(user_list)
-print(movie_list)
 rate_movie('Sally', 'Disaster Movie', 80)
 print(user_list)
-print(movie_list)
+rate_movie('Sally', 'Disaster Movie', 50)
+print(user_list)
+
+
+
 
