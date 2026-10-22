@@ -167,8 +167,11 @@ def rate_movie(username, title, rating):
 
 
 def user_summary(username):
+    user_exists = False
+
     for user in user_list:
         if user['username'] == username:
+            user_exists = True
             print(f'User {username}')
             print('Movies in watchlist:')
 
@@ -181,8 +184,9 @@ def user_summary(username):
                 print(f'{movie}')
                 print(f'{user['ratings'][movie]}/100')
 
-    if user['username'] != username:
-        print(f'User {username} not found on platform')
+    if user_exists == False:
+            print(f'User {username} not found on platform')
+
 
 
 def movie_summary(title):
@@ -196,6 +200,8 @@ def movie_summary(title):
 
 print(user_list)
 user_summary('Sally')
+
+user_summary('Sam')
 
 
 
