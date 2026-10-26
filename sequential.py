@@ -106,15 +106,16 @@ def watch_movie(username, title):
 
             for movie in movie_list:
                 if movie['title'] == title:
+                    movie_exists = True
+
                     if title not in user['movies_watched']:
                         if title in user['watchlist']:
                             user['watchlist'].remove(title)
-                            user['movies_watched'].append(title)
-                            movie_exists = True
-                            print(f'{title} watched by {username}')
+
+                        user['movies_watched'].append(title)
+                        print(f'{title} watched by {username}')
 
                     elif title in user['movies_watched']:
-                        movie_exists = True
                         print(f'{title} has already been watched by {username}')
 
             if movie_exists == False:
@@ -207,14 +208,29 @@ def user_summary(username):
 
 def movie_summary(title):
     movie_exists = False
+    total_rate = 0
+    people_rate = 0
 
     for movie in movie_list:
         if movie['title'] == title:
             movie_exists = True
-            pass
+            print(f'Movie: {title}')
+            print(f"Genre: {movie['genre']}")
+            print(f"Duration: {movie['duration']} minutes")
+
+            for user in user_list:
+                if title in user['ratings']:
+                    people_rate += 1
+                    total_rate += user['ratings'][title]
+
+            if people_rate > 0:
+                avg_rating = total_rate / people_rate
+                print(f"Average Rating: {avg_rating:.2f}/5")
+            else:
+                print(f"No ratings available for {title}")
 
 
-    else:
+    if movie_exists == False:
         print(f'Movie {title} not found on platform')
 
 add_to_watchlist('Sally', 'The Shawshank Redemption')
@@ -226,13 +242,14 @@ rate_movie('Sally', 'Up', 3)
 watch_movie('Bob', 'Disaster Movie')
 rate_movie('Bob', 'Disaster Movie', 3)
 rate_movie('Bob', 'Disaster Movie', 2)
-
-print(user_list)
-user_summary('Sally')
-user_summary('Bob')
-
+print()
 user_summary('Sam')
+print()
 print(movie_list)
+print()
+print(user_list)
+print()
+movie_summary('Disaster Movie')
 
 
 
