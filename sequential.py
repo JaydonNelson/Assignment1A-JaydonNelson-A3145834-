@@ -1,51 +1,58 @@
-'''
+"""
 File: sequential.py
 Description: A module for the sequential solution for the coastal streams online streaming platform.
 Author: Jaydon Nelson
 Username: JaydonNelson
 This is my own work as defined by the University's Academic Integrity Policy.
-'''
+"""
 
 # Movie list - Show all movies, which movies in which users watchlist, which movies each user watched, submitted ratings of movies.
 # Movie summary - movie title, genre, duration and avg. user rating. included in dictionaries now.
 movie_list = []
 
-movie = {'title': 'The Shawshank Redemption', 'genre': 'Drama', 'duration': 142, 'avg_rate':[]}
-movie_list.append(movie)
+movie1 = {'title': 'The Shawshank Redemption', 'genre': 'Drama', 'duration': 142}
+movie_list.append(movie1)
 
-movie = {'title': 'Disaster Movie', 'genre': 'Comedy', 'duration': 97, 'avg_rate':[]}
-movie_list.append(movie)
+movie2 = {'title': 'Disaster Movie', 'genre': 'Comedy', 'duration': 97}
+movie_list.append(movie2)
 
-movie = {'title': 'Lego: The Adventures of Clutch Powers', 'genre': 'Animation', 'duration': 78, 'avg_rate':[]}
-movie_list.append(movie)
+movie3 = {'title': 'Lego: The Adventures of Clutch Powers', 'genre': 'Animation', 'duration': 78}
+movie_list.append(movie3)
+
+movie4 = {'title': 'Up', 'genre': 'Animation', 'duration': 96}
+movie_list.append(movie4)
 
 # User list - Users name, movies in their watchlist, movies they have watched, any ratings they submitted.
 user_list = []
 
-user = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
-user_list.append(user)
+user1 = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user_list.append(user1)
 
-user = {'username': 'Sally', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
-user_list.append(user)
+user2 = {'username': 'Sally', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user_list.append(user2)
 
-user = {'username': 'Bob', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
-user_list.append(user)
+user3 = {'username': 'Bob', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user_list.append(user3)
 
 
+# The function new_user(username) takes a users name and, unless they are already in the user_list, adds a user dictionary for said user.
 def new_user(username):
     user_exists = False
+
     for user in user_list:
         if user['username'] == username:
             user_exists = True
 
-        if user_exists == False:
-            user = {'username': username, 'watchlist':[], 'movies_watched':[], 'ratings':{}}
-            user_list.append(user)
-            print(f'{username} added to users list')
+    if user_exists == False:
+        user = {'username': username, 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+        user_list.append(user)
+        print(f'{username} added to users list')
+
     else:
         print('Username already exists')
 
 
+# The function new_movie(title, genre, duration) takes a movies, title, genre and duration and, unless the title is already present in movie_list, adds the movie to movie_list as a movie dictionary.
 def new_movie(title, genre, duration):
     movie_exists = False
     for movie in movie_list:
@@ -53,13 +60,14 @@ def new_movie(title, genre, duration):
             movie_exists = True
 
     if movie_exists == False:
-        movie = {'title': title, 'genre': genre, 'duration': duration, 'avg_rate':[]}
+        movie = {'title': title, 'genre': genre, 'duration': duration}
         movie_list.append(movie)
         print(f'{title} added to movies list')
     else:
         print('Movie already exists')
 
 
+# The function add_to_watchlist(username, title) takes a username and title and if both the user is in the user_list and title is in the movie_list, it adds the movie to said users watchlist
 def add_to_watchlist(username, title):
     user_exists = False
     movie_exists = False
@@ -70,14 +78,9 @@ def add_to_watchlist(username, title):
             for movie in movie_list:
                 if movie['title'] == title:
                     if title not in user['watchlist']:
-                        if title in movie['title']:
-                            user['watchlist'].append(title)
-                            movie_exists = True
-                            print(f'{title} added to watchlist for {username}')
-
-                        else:
-                            movie_exists = False
-                            print(f'{title} not found on platform')
+                        user['watchlist'].append(title)
+                        movie_exists = True
+                        print(f'{title} added to watchlist for {username}')
 
                     elif title in user['watchlist']:
                         movie_exists = True
@@ -93,6 +96,7 @@ def add_to_watchlist(username, title):
         print(f'User {username} and movie {title} both not found on platform')
 
 
+# The function watch_movie(username, title) takes a username and title and, if both are within their respective user_list and movie_list, adds the movie to the users movies_watched list. If it was in their watchlist, it is removed from there.
 def watch_movie(username, title):
     user_exists = False
     movie_exists = False
@@ -103,16 +107,11 @@ def watch_movie(username, title):
             for movie in movie_list:
                 if movie['title'] == title:
                     if title not in user['movies_watched']:
-                        if title in movie['title']:
-                            if title in user['watchlist']:
-                                user['watchlist'].remove(title)
+                        if title in user['watchlist']:
+                            user['watchlist'].remove(title)
                             user['movies_watched'].append(title)
                             movie_exists = True
                             print(f'{title} watched by {username}')
-
-                        else:
-                            movie_exists = False
-                            print(f'{title} not found on platform')
 
                     elif title in user['movies_watched']:
                         movie_exists = True
@@ -128,6 +127,9 @@ def watch_movie(username, title):
         print(f'User {username} and movie {title} both not found on platform')
 
 
+# The function rate_movie(username, title, rating) takes a username, title of movie and rating of said movie (1-5).
+# Adds the movie title as a key and the rating as a value in the ratings dictionary in the user dictionary.
+# The function also adds the rating to the avg_rate list in the movie dictionary.
 def rate_movie(username, title, rating):
     user_exists = False
     movie_exists = False
@@ -141,12 +143,12 @@ def rate_movie(username, title, rating):
                     if title in user['movies_watched']:
                         if movie['title'] == title:
                             if isinstance(rating, int):
-                                if 0 <= rating <= 100:
+                                if 1 <= rating <= 5:
                                     user['ratings'][title] = rating
                                     movie_exists = True
-                                    print(f'{title} rated {rating}/100 by {username}')
+                                    print(f'{title} rated {rating}/5 by {username}')
                                 else:
-                                    print(f'{title} cannot be rated above 100 or below 0')
+                                    print(f'{title} cannot be rated above 5 or below 1')
 
                             else:
                                 movie_exists = False
@@ -154,7 +156,7 @@ def rate_movie(username, title, rating):
 
                     elif title not in user['movies_watched']:
                         movie_exists = True
-                        print(f'{title} rated hasn\'t been watched by {username} yet')
+                        print(f'{title} has not been watched by {username} yet')
 
             if movie_exists == False:
                 print(f'{title} not found on platform')
@@ -172,36 +174,65 @@ def user_summary(username):
     for user in user_list:
         if user['username'] == username:
             user_exists = True
-            print(f'User {username}')
+            print(f'User: {username}')
+            print()
             print('Movies in watchlist:')
 
-            for movie in user['watchlist']:
-                print(f'{movie}')
+            if len(user['watchlist']) > 0:
+                for movie in user['watchlist']:
+                    print(f'- {movie}')
 
-            print(f'Movies {username} has watched')
+            else:
+                print(f'No movies in {username}\'s watchlist')
 
-            for movie in user['movies_watched']:
-                print(f'{movie}')
-                print(f'{user['ratings'][movie]}/100')
+            print()
+            print(f'Movies {username} has watched:')
 
+            if len(user['movies_watched']) > 0:
+                for movie in user['movies_watched']:
+                    if movie in user['ratings']:
+                        rating = user['ratings'][movie]
+                        print(f'- {movie}, rated {rating}/5')
+
+                    else:
+                        print(f'{movie} has not been rated by {username}')
+
+            else:
+                print(f'No movies have been watched by {username}')
+
+            print()
     if user_exists == False:
             print(f'User {username} not found on platform')
 
 
-
 def movie_summary(title):
+    movie_exists = False
+
     for movie in movie_list:
         if movie['title'] == title:
+            movie_exists = True
             pass
 
-        else:
-            print(f'Movie {title} not found on platform')
 
+    else:
+        print(f'Movie {title} not found on platform')
+
+add_to_watchlist('Sally', 'The Shawshank Redemption')
+add_to_watchlist('Sally', 'Up')
+watch_movie('Sally', 'Disaster Movie')
+rate_movie('Sally', 'Disaster Movie', 4)
+rate_movie('Sally', 'Up', 3)
+
+watch_movie('Bob', 'Disaster Movie')
+rate_movie('Bob', 'Disaster Movie', 3)
+rate_movie('Bob', 'Disaster Movie', 2)
 
 print(user_list)
 user_summary('Sally')
+user_summary('Bob')
 
 user_summary('Sam')
+print(movie_list)
 
 
 
