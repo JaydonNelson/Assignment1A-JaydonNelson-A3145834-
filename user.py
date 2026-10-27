@@ -7,31 +7,10 @@ This is my own work as defined by the University's Academic Integrity Policy.
 """
 
 class User:
-    def __init__(self, name):
-        self.__user = {}
-        self.__name = name
+    def __init__(self, username):
+        self.__username = username
         self.__watchlist = []
-        self.__watched = []
-        self.__ratings = {}
-        self.__userlist = []
+        self.__movies_watched = []
+        self.__ratings = []
 
-    def get_name(self):
-        return self.__name
-
-    def get_watchlist(self):
-        return self.__watchlist
-
-    def get_watched(self):
-        return self.__watched
-
-    def set_watchlist(self, watchlist):
-        self.__watchlist = watchlist
-
-    def set_watched(self, watched):
-        self.__watched = watched
-
-
-    name = property(get_name)
-    watchlist = property(get_watchlist)
-    watched = property(get_watched)
 
