@@ -12,18 +12,14 @@ class Movie:
         self.__genre = genre
         self.__duration = duration
 
-
     def get_title(self):
         return self.__title
-
 
     def get_genre(self):
         return self.__genre
 
-
     def get_duration(self):
         return self.__duration
-
 
     def set_title(self, title):
         if isinstance(title, str):
@@ -31,7 +27,6 @@ class Movie:
 
         else:
             print("Title must be a string.")
-
 
     def set_genre(self, genre):
         if isinstance(genre, str):
@@ -51,5 +46,18 @@ class Movie:
     genre = property(get_genre, set_genre)
     duration = property(get_duration, set_duration)
 
+    # Summarizes the movie object and displays its title, genre and duration.
+    # Also used in movie_summary in Platform class.
+    def movie_summary(self):
+        print('-----------------')
+        print()
+        print(f'Title: {self.title}')
+        print()
+        print(f'Genre: {self.genre}')
+        print()
+        print(f'Duration: {self.duration}')
+        print()
+
     def __str__(self):
-        return f"{self.title} is a film in the {self.genre} genre with a duration of {self.duration} minutes."
+        return f"{self.title} is a film in the {self.genre} genre"\
+               f" with a duration of {self.duration} minutes."

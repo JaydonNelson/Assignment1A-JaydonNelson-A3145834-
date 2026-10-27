@@ -35,7 +35,8 @@ user3 = {'username': 'Bob', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
 user_list.append(user3)
 
 
-# The function new_user(username) takes a users name and, unless they are already in the user_list, adds a user dictionary for said user.
+# The function new_user(username) takes a users name.
+# Unless they are already in the user_list, adds a user dictionary for said user.
 def new_user(username):
     user_exists = False
 
@@ -52,9 +53,11 @@ def new_user(username):
         print('Username already exists')
 
 
-# The function new_movie(title, genre, duration) takes a movies, title, genre and duration and, unless the title is already present in movie_list, adds the movie to movie_list as a movie dictionary.
+# The function new_movie(title, genre, duration) takes a movies, title, genre and duration.
+# Unless the title is already present in movie_list, adds the movie to movie_list as a movie dictionary.
 def new_movie(title, genre, duration):
     movie_exists = False
+
     for movie in movie_list:
         if movie['title'] == title:
             movie_exists = True
@@ -63,14 +66,17 @@ def new_movie(title, genre, duration):
         movie = {'title': title, 'genre': genre, 'duration': duration}
         movie_list.append(movie)
         print(f'{title} added to movies list')
+
     else:
         print('Movie already exists')
 
 
-# The function add_to_watchlist(username, title) takes a username and title and if both the user is in the user_list and title is in the movie_list, it adds the movie to said users watchlist
+# The function add_to_watchlist(username, title) takes a username and title.
+# If both the user is in the user_list and title is in the movie_list, it adds the movie to said users watchlist.
 def add_to_watchlist(username, title):
     user_exists = False
     movie_exists = False
+
     for user in user_list:
         if user['username'] == username:
             user_exists = True
@@ -96,10 +102,13 @@ def add_to_watchlist(username, title):
         print(f'User {username} and movie {title} both not found on platform')
 
 
-# The function watch_movie(username, title) takes a username and title and, if both are within their respective user_list and movie_list, adds the movie to the users movies_watched list. If it was in their watchlist, it is removed from there.
+# The function watch_movie(username, title) takes a username and title.
+# If both are within their respective user_list and movie_list, adds the movie to the users movies_watched list.
+# If it was in their watchlist, it is removed from there.
 def watch_movie(username, title):
     user_exists = False
     movie_exists = False
+
     for user in user_list:
         if user['username'] == username:
             user_exists = True
@@ -162,7 +171,11 @@ def rate_movie(username, title, rating):
     if user_exists == False:
         print(f'User {username} not found on platform')
 
-
+# Summarizes the user based on username specified if user is within user_list.
+# Prints watchlist if more than 0 movies are in it, prints the movie and rating if both are present.
+# If just movie has been watched, then prints movie and explains that hasn't been rated.
+# If no movies have been watched, prints message alerting user of this case.
+# If user not in user_list, message is printed to user letting them know.
 def user_summary(username):
     user_exists = False
 
@@ -196,10 +209,15 @@ def user_summary(username):
                 print(f'No movies have been watched by {username}')
 
             print()
+
     if user_exists == False:
             print(f'User {username} not found on platform')
 
-
+# Summarizes the movie based on title used as argument.
+# Goes through all movies in movie_list and if the title is present, a summary of the movie is printed.
+# When it gets to rating, it calculates the rating based on the rating values found for said title.
+# Uses total_rate to add all ratings together and people_rate to add how many people rated the movie together.
+# Prints the average rating if more then 0 people have rated the movie, otherwise prints no ratings message.
 def movie_summary(title):
     movie_exists = False
     total_rate = 0
@@ -228,13 +246,12 @@ def movie_summary(title):
                 print()
                 print('-----------------')
                 print()
-            else:
 
+            else:
                 print(f"No ratings available for {title}")
                 print()
                 print('-----------------')
                 print()
-
 
     if movie_exists == False:
         print(f'Movie {title} not found on platform')

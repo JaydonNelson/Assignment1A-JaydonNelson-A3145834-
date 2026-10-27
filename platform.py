@@ -15,7 +15,6 @@ class Platform:
         self.__movie_list = []
         self.__user_list = []
 
-
     # Checks through movie_list and if the title is present for a movie, the function returns False, otherwise, returns True.
     def movie_exists(self, title):
         movie_exists = False
@@ -26,7 +25,6 @@ class Platform:
 
         return movie_exists
 
-
     # Checks through user_list and if the username is present for a user, the function returns False, otherwise, returns True
     def user_exists(self, username):
         user_exists = False
@@ -36,7 +34,6 @@ class Platform:
                 user_exists = True
 
         return user_exists
-
 
     # Looks for user in user_list, if it finds user with username matching, it returns said user, if not, returns None.
     def find_user(self, username):
@@ -54,7 +51,6 @@ class Platform:
 
         return None
 
-
     # Adds a new user provided the username is not already present within the user_list, if it is, the user is notified.
     def new_user(self, username):
         if self.user_exists(username) == True:
@@ -63,7 +59,6 @@ class Platform:
         else:
             self.__user_list.append(User(username))
             print(f'{username} added to users list')
-
 
     # Adds a new movie provided the title is not already present within the movie_list, if it is, the user is notified.
     def new_movie(self, title, genre, duration):
@@ -98,7 +93,6 @@ class Platform:
         else:
             print(f'{username} or {title} doesn\'t exist on platform.')
 
-
     # Finds user and movie and if both are not None in value through find_user and find_movie methods.
     # The rate_movie method in User class is used to check if the movie has been watched, if it has, the rating is applied to said movie.
     # If the movie has been rated previously, the old rating will be replaced by the new rating.
@@ -110,10 +104,56 @@ class Platform:
             user.rate_movie(movie, rating)
 
         else:
-            print(f'{username} or {movie} doesn\'t exist on platform.')
+            print(f'{username} or {title} doesn\'t exist on platform.')
+            print()
+            print('-----------------')
 
+    # Finds the user specified by the username, if they exist on the platform.
+    # If they are found, it uses user.user_summary to summarize the users watchlist, movies watched and ratings, if any.
+    # If not found, tells user that user isn't on platform.
+    def user_summary(self, username):
+        user = self.find_user(username)
+        if user is not None:
+            user.user_summary()
 
+        else:
+            print(f'The user {username} doesn\'t exist on platform.')
+
+    # Finds the movie specified by its title and displays it along with its genre and duration.
+    # Loops through the user_list to find any ratings associated with said movie, it calculates average from this.
+    # If movie isn't found or a movie has no ratings, the user is notified.
+    def movie_summary(self, title):
+        movie = self.find_movie(title)
+        total_rate = 0
+        people_rate = 0
+
+        if movie is not None:
+            movie.movie_summary()
+
+            for user in self.__user_list:
+                rating = user.find_avg_rating(title)
+
+                if rating is not None:
+                    total_rate += rating
+                    people_rate += 1
+
+            if people_rate > 0:
+                avg_rating = total_rate / people_rate
+                print(f'{title} has a rating of {avg_rating:.2f}/5.')
+                print()
+                print('-----------------')
+
+            else:
+                print(f'{title} has no ratings yet.')
+                print()
+                print('-----------------')
+
+        else:
+            print(f'The movie {title} doesn\'t exist on platform.')
+            print()
+            print('-----------------')
 
     def __str__(self):
-        pass
+        return f'The Coastal Streams platform has {len(self.__user_list)} users'\
+               f' and {len(self.__movie_list)} movies.'
 
