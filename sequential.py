@@ -25,13 +25,13 @@ movie_list.append(movie4)
 # User list - Users name, movies in their watchlist, movies they have watched, any ratings they submitted.
 user_list = []
 
-user1 = {'username': 'Jaydon', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user1 = {'username': 'Jaydon', 'watchlist': [], 'movies_watched': [], 'ratings': {}}
 user_list.append(user1)
 
-user2 = {'username': 'Sally', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user2 = {'username': 'Sally', 'watchlist': [], 'movies_watched': [], 'ratings': {}}
 user_list.append(user2)
 
-user3 = {'username': 'Bob', 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+user3 = {'username': 'Bob', 'watchlist': [], 'movies_watched': [], 'ratings': {}}
 user_list.append(user3)
 
 
@@ -45,7 +45,7 @@ def new_user(username):
             user_exists = True
 
     if user_exists == False:
-        user = {'username': username, 'watchlist':[], 'movies_watched':[], 'ratings':{}}
+        user = {'username': username, 'watchlist': [], 'movies_watched': [], 'ratings': {}}
         user_list.append(user)
         print(f'{username} added to users list')
 
@@ -95,11 +95,8 @@ def add_to_watchlist(username, title):
             if movie_exists == False:
                 print(f'{title} not found on platform')
 
-    if user_exists == False and movie_exists == True:
+    if user_exists == False:
         print(f'User {username} not found on platform')
-
-    elif user_exists == False and movie_exists == False:
-        print(f'User {username} and movie {title} both not found on platform')
 
 
 # The function watch_movie(username, title) takes a username and title.
@@ -130,11 +127,8 @@ def watch_movie(username, title):
             if movie_exists == False:
                 print(f'{title} not found on platform')
 
-    if user_exists == False and movie_exists == True:
+    if user_exists == False:
         print(f'User {username} not found on platform')
-
-    elif user_exists == False and movie_exists == False:
-        print(f'User {username} and movie {title} both not found on platform')
 
 
 # The function rate_movie(username, title, rating) takes a username, title of movie and rating of said movie (1-5).

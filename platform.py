@@ -15,7 +15,8 @@ class Platform:
         self.__movie_list = []
         self.__user_list = []
 
-    # Checks through movie_list and if the title is present for a movie, the function returns False, otherwise, returns True.
+    # Checks through movie_list and if the title is present for a movie.
+    # The function returns True if found and returns False if not.
     def movie_exists(self, title):
         movie_exists = False
 
@@ -25,7 +26,8 @@ class Platform:
 
         return movie_exists
 
-    # Checks through user_list and if the username is present for a user, the function returns False, otherwise, returns True
+    # Checks through user_list and, if the username is present for a user,
+    # The function returns True, otherwise, returns False.
     def user_exists(self, username):
         user_exists = False
 
@@ -79,7 +81,7 @@ class Platform:
             user.add_to_watchlist(movie)
 
         else:
-            print(f'{username} or {movie} doesn\'t exist on platform.')
+            print(f'{username} or {title} doesn\'t exist on platform.')
 
     # Finds user and movie and if both are not None in value through find_user and find_movie methods.
     # The watch_movie method in User class is used to check if movie has been watched before, if it hasn't, it is added to the movies_watched list.
@@ -131,7 +133,7 @@ class Platform:
             movie.movie_summary()
 
             for user in self.__user_list:
-                rating = user.find_avg_rating(title)
+                rating = user.find_rating(title)
 
                 if rating is not None:
                     total_rate += rating
@@ -154,6 +156,6 @@ class Platform:
             print('-----------------')
 
     def __str__(self):
-        return f'The Coastal Streams platform has {len(self.__user_list)} users'\
-               f' and {len(self.__movie_list)} movies.'
+        return (f'The Coastal Streams platform has {len(self.__user_list)} users'
+               f' and {len(self.__movie_list)} movies.')
 
