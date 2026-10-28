@@ -24,13 +24,13 @@ class User:
         print()
         if movie not in self.__watchlist:
             self.__watchlist.append(movie)
-            print(f'Movie {movie.title} added to watchlist.')
+            print(f'Movie {movie.title} added to {self.username}\'s watchlist.')
             print()
             print('-----------------')
 
 
         else:
-            print(f'Movie {movie.title} already in watchlist.')
+            print(f'Movie {movie.title} already in {self.username}\'s watchlist.')
             print()
             print('-----------------')
 
@@ -104,7 +104,7 @@ class User:
             for movie in self.__movies_watched:
                 if movie.title in self.__ratings:
                     rating = self.__ratings[movie.title]
-                    print(f'- {movie.title} rated {rating}/5')
+                    print(f'- {movie.title} watched, rated {rating}/5')
                     print()
 
                 else:
@@ -119,7 +119,7 @@ class User:
             print()
             print('-----------------')
 
-    #  Returns the value for rating for a specific movie title.
+    # Returns the value for rating for a specific movie title.
     # If the user has not rated the movie, None is returned.
     def find_rating(self, title):
         return self.__ratings.get(title)

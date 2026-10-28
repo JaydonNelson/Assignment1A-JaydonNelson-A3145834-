@@ -34,6 +34,8 @@ platform.new_movie('Interstellar', 'Sci-Fi', 169)
 platform.new_movie('Up', 'Animation', 96)
 platform.new_movie('The Shawshank Redemption', 'Drama', 142)
 platform.new_movie('Avatar', 'Sci-Fi', 162)
+
+
 #print()
 #user = platform.find_user('Sally')
 #movie = platform.find_movie('Interstellar')

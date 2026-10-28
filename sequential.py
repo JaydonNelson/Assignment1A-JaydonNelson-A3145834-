@@ -262,6 +262,8 @@ rate_movie('Sally', 'Up', 3)
 watch_movie('Bob', 'Disaster Movie')
 rate_movie('Bob', 'Disaster Movie', 3)
 rate_movie('Bob', 'Disaster Movie', 2)
+
+
 #print()
 #print()
 #print(movie_list)
